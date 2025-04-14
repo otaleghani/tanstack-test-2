@@ -1,0 +1,22 @@
+{
+  "framework": "react",
+  "typescript": true,
+  "projectName": "tanstack-test-pt2",
+  "mode": "file-router",
+  "tailwind": true,
+  "packageManager": "pnpm",
+  "toolchain": "eslint+prettier",
+  "variableValues": {},
+  "git": true,
+  "version": 1,
+  "existingAddOns": [
+    "form",
+    "shadcn",
+    "start",
+    "store",
+    "tRPC",
+    "table",
+    "tanstack-query",
+    "tanchat"
+  ]
+}
