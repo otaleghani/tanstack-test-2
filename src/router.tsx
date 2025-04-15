@@ -6,6 +6,7 @@ import * as TanstackQuery from './integrations/tanstack-query/root-provider'
 import { routeTree } from './routeTree.gen'
 
 import './styles.css'
+import { dehydrate, hydrate } from '@tanstack/react-query'
 
 // Create a new router instance
 export const createRouter = () => {
@@ -17,7 +18,14 @@ export const createRouter = () => {
       },
       scrollRestoration: true,
       defaultPreloadStaleTime: 0,
-
+      dehydrate: () => {
+        return {
+          queryClientState: dehydrate(TanstackQuery.getContext().queryClient)
+        }
+      },
+      hydrate: (dehydrate) => {
+        hydrate(TanstackQuery.getContext().queryClient, dehydrate.queryClientState)
+      },
       Wrap: (props: { children: React.ReactNode }) => {
         return <TanstackQuery.Provider>{props.children}</TanstackQuery.Provider>
       },

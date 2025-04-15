@@ -12,6 +12,9 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as ZdemoTrpcImport } from './routes/zdemo.trpc'
+import { Route as ZdemoFormQueryImport } from './routes/zdemo.form-query'
+import { Route as ZdemoFormImport } from './routes/zdemo.form'
 import { Route as ExampleChatImport } from './routes/example.chat'
 import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableImport } from './routes/demo.table'
@@ -28,6 +31,24 @@ import { Route as DemoFormAddressImport } from './routes/demo.form.address'
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ZdemoTrpcRoute = ZdemoTrpcImport.update({
+  id: '/zdemo/trpc',
+  path: '/zdemo/trpc',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ZdemoFormQueryRoute = ZdemoFormQueryImport.update({
+  id: '/zdemo/form-query',
+  path: '/zdemo/form-query',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ZdemoFormRoute = ZdemoFormImport.update({
+  id: '/zdemo/form',
+  path: '/zdemo/form',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -130,6 +151,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExampleChatImport
       parentRoute: typeof rootRoute
     }
+    '/zdemo/form': {
+      id: '/zdemo/form'
+      path: '/zdemo/form'
+      fullPath: '/zdemo/form'
+      preLoaderRoute: typeof ZdemoFormImport
+      parentRoute: typeof rootRoute
+    }
+    '/zdemo/form-query': {
+      id: '/zdemo/form-query'
+      path: '/zdemo/form-query'
+      fullPath: '/zdemo/form-query'
+      preLoaderRoute: typeof ZdemoFormQueryImport
+      parentRoute: typeof rootRoute
+    }
+    '/zdemo/trpc': {
+      id: '/zdemo/trpc'
+      path: '/zdemo/trpc'
+      fullPath: '/zdemo/trpc'
+      preLoaderRoute: typeof ZdemoTrpcImport
+      parentRoute: typeof rootRoute
+    }
     '/demo/form/address': {
       id: '/demo/form/address'
       path: '/demo/form/address'
@@ -183,6 +225,9 @@ export interface FileRoutesByFullPath {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/zdemo/form': typeof ZdemoFormRoute
+  '/zdemo/form-query': typeof ZdemoFormQueryRoute
+  '/zdemo/trpc': typeof ZdemoTrpcRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -197,6 +242,9 @@ export interface FileRoutesByTo {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/zdemo/form': typeof ZdemoFormRoute
+  '/zdemo/form-query': typeof ZdemoFormQueryRoute
+  '/zdemo/trpc': typeof ZdemoTrpcRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -212,6 +260,9 @@ export interface FileRoutesById {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/zdemo/form': typeof ZdemoFormRoute
+  '/zdemo/form-query': typeof ZdemoFormQueryRoute
+  '/zdemo/trpc': typeof ZdemoTrpcRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -228,6 +279,9 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/zdemo/form'
+    | '/zdemo/form-query'
+    | '/zdemo/trpc'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
@@ -241,6 +295,9 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/zdemo/form'
+    | '/zdemo/form-query'
+    | '/zdemo/trpc'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
@@ -254,6 +311,9 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/zdemo/form'
+    | '/zdemo/form-query'
+    | '/zdemo/trpc'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
@@ -269,6 +329,9 @@ export interface RootRouteChildren {
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   ExampleChatRoute: typeof ExampleChatRoute
+  ZdemoFormRoute: typeof ZdemoFormRoute
+  ZdemoFormQueryRoute: typeof ZdemoFormQueryRoute
+  ZdemoTrpcRoute: typeof ZdemoTrpcRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -283,6 +346,9 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   ExampleChatRoute: ExampleChatRoute,
+  ZdemoFormRoute: ZdemoFormRoute,
+  ZdemoFormQueryRoute: ZdemoFormQueryRoute,
+  ZdemoTrpcRoute: ZdemoTrpcRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
@@ -306,6 +372,9 @@ export const routeTree = rootRoute
         "/demo/table",
         "/demo/tanstack-query",
         "/example/chat",
+        "/zdemo/form",
+        "/zdemo/form-query",
+        "/zdemo/trpc",
         "/demo/form/address",
         "/demo/form/simple",
         "/demo/start/api-request",
@@ -328,6 +397,15 @@ export const routeTree = rootRoute
     },
     "/example/chat": {
       "filePath": "example.chat.tsx"
+    },
+    "/zdemo/form": {
+      "filePath": "zdemo.form.tsx"
+    },
+    "/zdemo/form-query": {
+      "filePath": "zdemo.form-query.tsx"
+    },
+    "/zdemo/trpc": {
+      "filePath": "zdemo.trpc.tsx"
     },
     "/demo/form/address": {
       "filePath": "demo.form.address.tsx"

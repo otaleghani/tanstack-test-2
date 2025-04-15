@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { createFileRoute } from '@tanstack/react-router'
+import { ClientOnly, createFileRoute } from '@tanstack/react-router'
 
 function getNames() {
   return fetch('/api/demo-names').then((res) => res.json())
@@ -17,8 +17,10 @@ function Home() {
   }, [])
 
   return (
-    <div className="p-4">
-      <div>{names.join(', ')}</div>
-    </div>
+    <ClientOnly fallback={<>sus</>}>
+      <div className="p-4">
+        <div>{names.join(', ')}</div>
+      </div>
+    </ClientOnly>
   )
 }

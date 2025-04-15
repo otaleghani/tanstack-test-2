@@ -37,11 +37,10 @@ function Messages({ messages }: { messages: Array<UIMessage> }) {
       {messages.map(({ id, role, content, parts }) => (
         <div
           key={id}
-          className={`py-3 ${
-            role === 'assistant'
+          className={`py-3 ${role === 'assistant'
               ? 'bg-gradient-to-r from-orange-500/5 to-red-600/5'
               : 'bg-transparent'
-          }`}
+            }`}
         >
           {content.length > 0 && (
             <div className="flex items-start gap-2 px-4">
