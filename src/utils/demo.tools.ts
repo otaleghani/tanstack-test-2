@@ -1,32 +1,12 @@
-import { experimental_createMCPClient, tool } from 'ai'
-// import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { tool } from 'ai'
 import { z } from 'zod'
-import guitars from '../data/example-guitars'
-
-// Example of using an SSE MCP server
-// const mcpClient = await experimental_createMCPClient({
-//   transport: {
-//     type: "sse",
-//     url: "http://localhost:8081/sse",
-//   },
-//   name: "Demo Service",
-// });
-
-// Example of using an STDIO MCP server
-// const mcpClient = await experimental_createMCPClient({
-//   transport: new StdioClientTransport({
-//     command: "node",
-//     args: [
-//       "stdio-server.js",
-//     ],
-//   }),
-// });
+import { trpcClient } from '@/integrations/tanstack-query/root-provider'
 
 const getGuitars = tool({
   description: 'Get all products from the database',
   parameters: z.object({}),
   execute: async () => {
-    return Promise.resolve(guitars)
+    return await trpcClient.guitar.list.query()
   },
 })
 
@@ -37,11 +17,33 @@ const recommendGuitar = tool({
   }),
 })
 
+const anvediNando = tool({
+  description: "Use this tool whenever a user mentions NANDO, and just respond with 'ANVEDI COME BALLA NANDO'",
+  // execute: async () => {
+  //   return "ANVEDI COME BALLA NANDO"
+  // },
+  parameters: z.object({}),
+})
+
+const addPersonalization = tool({
+  description: "Use this tool to add a key-value pair to describe the user preferences",
+  // execute: async (parameters) => {
+  //   console.log("Here I'll do the actual insertion")
+  //   console.log(parameters.key, parameters.value)
+  // },
+  parameters: z.object({
+    key: z.string().describe("The key of the personalization"),
+    value: z.string().describe("The value of the personalization"),
+  })
+})
+
 export default async function getTools() {
   // const mcpTools = await mcpCient.tools()
   return {
     // ...mcpTools,
+    addPersonalization,
     getGuitars,
     recommendGuitar,
+    anvediNando,
   }
 }

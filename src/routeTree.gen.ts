@@ -15,6 +15,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as ZdemoTrpcImport } from './routes/zdemo.trpc'
 import { Route as ZdemoFormQueryImport } from './routes/zdemo.form-query'
 import { Route as ZdemoFormImport } from './routes/zdemo.form'
+import { Route as ZdemoAiImport } from './routes/zdemo.ai'
 import { Route as ExampleChatImport } from './routes/example.chat'
 import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as DemoTableImport } from './routes/demo.table'
@@ -49,6 +50,12 @@ const ZdemoFormQueryRoute = ZdemoFormQueryImport.update({
 const ZdemoFormRoute = ZdemoFormImport.update({
   id: '/zdemo/form',
   path: '/zdemo/form',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ZdemoAiRoute = ZdemoAiImport.update({
+  id: '/zdemo/ai',
+  path: '/zdemo/ai',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -151,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExampleChatImport
       parentRoute: typeof rootRoute
     }
+    '/zdemo/ai': {
+      id: '/zdemo/ai'
+      path: '/zdemo/ai'
+      fullPath: '/zdemo/ai'
+      preLoaderRoute: typeof ZdemoAiImport
+      parentRoute: typeof rootRoute
+    }
     '/zdemo/form': {
       id: '/zdemo/form'
       path: '/zdemo/form'
@@ -225,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/zdemo/ai': typeof ZdemoAiRoute
   '/zdemo/form': typeof ZdemoFormRoute
   '/zdemo/form-query': typeof ZdemoFormQueryRoute
   '/zdemo/trpc': typeof ZdemoTrpcRoute
@@ -242,6 +257,7 @@ export interface FileRoutesByTo {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/zdemo/ai': typeof ZdemoAiRoute
   '/zdemo/form': typeof ZdemoFormRoute
   '/zdemo/form-query': typeof ZdemoFormQueryRoute
   '/zdemo/trpc': typeof ZdemoTrpcRoute
@@ -260,6 +276,7 @@ export interface FileRoutesById {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/zdemo/ai': typeof ZdemoAiRoute
   '/zdemo/form': typeof ZdemoFormRoute
   '/zdemo/form-query': typeof ZdemoFormQueryRoute
   '/zdemo/trpc': typeof ZdemoTrpcRoute
@@ -279,6 +296,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/zdemo/ai'
     | '/zdemo/form'
     | '/zdemo/form-query'
     | '/zdemo/trpc'
@@ -295,6 +313,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/zdemo/ai'
     | '/zdemo/form'
     | '/zdemo/form-query'
     | '/zdemo/trpc'
@@ -311,6 +330,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/zdemo/ai'
     | '/zdemo/form'
     | '/zdemo/form-query'
     | '/zdemo/trpc'
@@ -329,6 +349,7 @@ export interface RootRouteChildren {
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   ExampleChatRoute: typeof ExampleChatRoute
+  ZdemoAiRoute: typeof ZdemoAiRoute
   ZdemoFormRoute: typeof ZdemoFormRoute
   ZdemoFormQueryRoute: typeof ZdemoFormQueryRoute
   ZdemoTrpcRoute: typeof ZdemoTrpcRoute
@@ -346,6 +367,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   ExampleChatRoute: ExampleChatRoute,
+  ZdemoAiRoute: ZdemoAiRoute,
   ZdemoFormRoute: ZdemoFormRoute,
   ZdemoFormQueryRoute: ZdemoFormQueryRoute,
   ZdemoTrpcRoute: ZdemoTrpcRoute,
@@ -372,6 +394,7 @@ export const routeTree = rootRoute
         "/demo/table",
         "/demo/tanstack-query",
         "/example/chat",
+        "/zdemo/ai",
         "/zdemo/form",
         "/zdemo/form-query",
         "/zdemo/trpc",
@@ -397,6 +420,9 @@ export const routeTree = rootRoute
     },
     "/example/chat": {
       "filePath": "example.chat.tsx"
+    },
+    "/zdemo/ai": {
+      "filePath": "zdemo.ai.tsx"
     },
     "/zdemo/form": {
       "filePath": "zdemo.form.tsx"

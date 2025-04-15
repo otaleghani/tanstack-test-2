@@ -16,6 +16,7 @@ import type { UIMessage } from 'ai'
 
 function Messages({ messages }: { messages: Array<UIMessage> }) {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
+  console.log(messages)
 
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -38,8 +39,8 @@ function Messages({ messages }: { messages: Array<UIMessage> }) {
         <div
           key={id}
           className={`py-3 ${role === 'assistant'
-              ? 'bg-gradient-to-r from-orange-500/5 to-red-600/5'
-              : 'bg-transparent'
+            ? 'bg-gradient-to-r from-orange-500/5 to-red-600/5'
+            : 'bg-transparent'
             }`}
         >
           {content.length > 0 && (
@@ -70,9 +71,7 @@ function Messages({ messages }: { messages: Array<UIMessage> }) {
           )}
           {parts
             .filter((part) => part.type === 'tool-invocation')
-            .filter(
-              (part) => part.toolInvocation.toolName === 'recommendGuitar',
-            )
+            .filter((part) => part.toolInvocation.toolName === 'recommendGuitar')
             .map((toolCall) => (
               <div
                 key={toolCall.toolInvocation.toolName}
@@ -81,6 +80,25 @@ function Messages({ messages }: { messages: Array<UIMessage> }) {
                 <GuitarRecommendation id={toolCall.toolInvocation.args.id} />
               </div>
             ))}
+          {parts
+            .filter((part) => part.type === "tool-invocation")
+            .filter((part) => part.toolInvocation.toolName === "anvediNando")
+            .map((toolCall) => (
+              <div>Anvdi nando {toolCall.type}</div>
+            ))
+          }
+          {parts
+            .filter((part) => part.type === "tool-invocation")
+            .filter((part) => part.toolInvocation.toolName === "addPersonalization")
+            .map((toolCall) => {
+              return (
+                <div>
+                  {toolCall.toolInvocation.args.key}
+                  {toolCall.toolInvocation.args.value}
+                </div>
+              )
+            })
+          }
         </div>
       ))}
     </div>
@@ -102,6 +120,13 @@ export default function AIAssistant() {
     onToolCall: (call) => {
       if (call.toolCall.toolName === 'recommendGuitar') {
         return 'Handled by the UI'
+      }
+      if (call.toolCall.toolName === 'anvediNando') {
+        console.log("Nando from ui")
+        return "Handled by the UI"
+      }
+      if (call.toolCall.toolName === "addPersonalization") {
+        console.log("Personalization fired")
       }
     },
   })

@@ -16,6 +16,10 @@ You can use the following tools to help the user:
 
 - getGuitars: Get all guitars from the database
 - recommendGuitar: Recommend a guitar to the user
+- anvediNando: Use this tool whenever a user mentions NANDO, and just respond with 'ANVEDI COME BALLA NANDO'
+- addPersonalization: Use this tool to add a key-value pair to describe the user preferences
+
+If a user exress a preference you must use the addPersonalization to add the user preference.
 `
 
 export const genAIResponse = createServerFn({ method: 'POST', response: 'raw' })
@@ -37,11 +41,12 @@ export const genAIResponse = createServerFn({ method: 'POST', response: 'raw' })
         content: msg.content.trim(),
       }))
 
+
     const tools = await getTools()
 
     try {
       const result = streamText({
-        model: anthropic('claude-3-5-sonnet-latest'),
+        model: anthropic('claude-3-5-haiku-latest'),
         messages,
         system: SYSTEM_PROMPT,
         maxSteps: 10,
